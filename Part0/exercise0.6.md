@@ -1,17 +1,5 @@
 ```mermaid
-%%{
-  init: {
-    'theme': 'base',
-    'themeVariables': {
-      'primaryColor': '#808080',
-      'primaryTextColor': '#fff',
-      'primaryBorderColor': '#7C0000',
-      'lineColor': '#F8B229',
-      'secondaryColor': '#006100',
-      'tertiaryColor': '#fff'
-    }
-  }
-}%%
+
 sequenceDiagram
     Browser ->> Server: GET https://studies.cs.helsinki.fi/exampleapp/spa
     Server -->> Browser: HTML code
