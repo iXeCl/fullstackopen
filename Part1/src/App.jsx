@@ -4,6 +4,42 @@ const Display = ({text}) => <div><p><b>{text}</b></p></div>
   
 const Button = ({onClick,text}) =>  <button onClick={onClick}>{text}</button>
 
+const Average = ({average,total}) => {
+  if (average === 0 && total === 0){
+    return <div><p>average 0</p></div>
+  }
+  return <div><p>average {average/total}</p></div>
+
+} 
+const Positive = ({good,total}) => {
+  if (good === 0){
+    return <div><p>Positive 0%</p></div>
+  }
+  return <div><p>Positive {100*(good/total)}%</p></div>
+}
+
+const Statistics = ({good,bad,neutral,total,average}) => {
+  if (total===0){
+    return <div>
+      <b>statistics</b>
+      <p>No feedback given</p>
+    
+    </div>
+  }
+  return <div>
+    <b>statistics</b>
+    <p><b>good </b>{good}</p>
+    <p><b>neutral </b>{neutral}</p>
+    <p><b>bad </b>{bad}</p>
+    <p><b>total </b>{total}</p>
+    <Average average={average} total={total}/>
+    <Positive good={good} total={total}/>
+    </div>
+  
+
+}
+
+//------------------------------------------------------------------------------------------------
 const App = () => {
   const [good,setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
@@ -31,32 +67,21 @@ const App = () => {
 
   }
 
-  const Average = ({average,total}) => {
-    if (average === 0 && total === 0){
-      return <div><p>average 0</p></div>
-    }
-    return <div><p>average {average/total}</p></div>
-
-  } 
-  const Positive = ({good,total}) => {
-    if (good === 0){
-      return <div><p>Positive 0%</p></div>
-    }
-    return <div><p>Positive {good/total}%</p></div>
-  }
+  
   return (
     <div>
       <Display text = "give feedback"/> 
       <Button onClick={handleGoodClick} text="good"/>
       <Button onClick={handleNeutralClick} text="neutral"/>
       <Button onClick={handleBadClick} text="bad"/> 
-      <Display text = "statistics" />
+      <Statistics average={average} bad={bad} good={good} neutral={neutral} total={total}/>
+      {/* <Display text = "statistics" />
       <p><b>good </b>{good}</p>
       <p><b>neutral </b>{neutral}</p>
       <p><b>bad </b>{bad}</p>
       <p><b>total </b>{total}</p>
       <Average average={average} total={total}/>
-      <Positive good={good} total={total}/>
+      <Positive good={good} total={total}/> */}
     </div>  
   )
 }
