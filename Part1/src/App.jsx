@@ -1,37 +1,33 @@
+
 import { useState } from 'react'
-const Display = ({counter}) => <div>{counter}</div>
+
+const Display = ({text}) => <div><p><b>{text}</b></p></div>
   
-const Button = ({onClick, text}) =>  <button onClick={onClick}> {text} </button>
-  
+const Button = ({onClick,text}) =>  <button onClick={onClick}>{text}</button>
+
+
+
 
 
 const App = () => {
-  const [clicks, setClicks] = useState({
-    left: 0, right: 0
-  })
+  const [good,setGood] = useState(0)
+  const [neutral, setNeutral] = useState(0)
+  const [bad, setBad]= useState(0)
 
-  const handleLeftClick = () => {
-    const newClicks = { 
-      left: clicks.left + 1, 
-      right: clicks.right 
-    }
-    setClicks(newClicks)
-  }
-
-  const handleRightClick = () => {
-    const newClicks = { 
-      left: clicks.left, 
-      right: clicks.right + 1 
-    }
-    setClicks(newClicks)
-  }
+  const handleGoodClick = () => setGood(good+1) + neutral + bad
+  const handleNeutralClick = () => setNeutral(neutral+1) 
+  const handleBadClick = () => setBad(bad+1) 
 
   return (
     <div>
-      {clicks.left}
-      <button onClick={handleLeftClick}>left</button>
-      <button onClick={handleRightClick}>right</button>
-      {clicks.right}
+      <Display text = "give feedback"/> 
+      <Button onClick={handleGoodClick} text="good"/>
+      <Button onClick={handleNeutralClick} text="neutral"/>
+      <Button onClick={handleBadClick} text="bad"/> 
+      <Display text = "statistics" />
+      <p><b>good </b>{good}</p>
+      <p><b>neutral </b>{neutral}</p>
+      <p><b>bad </b>{bad}</p>
     </div>
   )
 }
