@@ -136,15 +136,65 @@
 //   console.log(arto.age)
 
 
-const a = [0,0,0,0,0,0,0,0]
-a[2]+=1
+// const a = [0,0,0,0,0,0,0,0]
+// a[2]+=1
 
-//console.log(a)
+// //console.log(a)
 
 
-const b =[1, 4, 5, 2, 0, 0, 0, 0]
+// const b =[1, 4, 5, 2, 0, 0, 0, 0]
 
-console.log(b.indexOf(Math.max(b)))
-console.log(b)
-console.log(...b)
+// console.log(b.indexOf(Math.max(b)))
+// console.log(b)
+// console.log(...b)
 
+// MAPS on Arrays
+// const notes = [
+//     {
+//       id: 1,
+//       content: 'HTML is easy',
+//       important: true
+//     },
+//     {
+//       id: 2,
+//       content: 'Browser can execute only JavaScript',
+//       important: false
+//     },
+//     {
+//       id: 3,
+//       content: 'GET and POST are the most important methods of HTTP protocol',
+//       important: true
+//     }
+//   ]
+// // console.log(notes[1].content)
+// // console.log(notes.map(note=> note.content))
+
+// // const b = [1,2,3,4,5]
+// // console.log(b.map(a => a*2))
+
+// const result = notes.map(note => note.id) 
+// console.log(typeof result[1])
+
+const course = {
+    id: 1,
+    name: 'Half Stack application development',
+    parts: [
+      {
+        name: 'Fundamentals of React',
+        exercises: 10,
+        id: 1
+      },
+      {
+        name: 'Using props to pass data',
+        exercises: 7,
+        id: 2
+      },
+      {
+        name: 'State of a component',
+        exercises: 14,
+        id: 3
+      }
+    ]
+  }
+
+  console.log(course.parts.map(part=>part.name + part.exercises))
