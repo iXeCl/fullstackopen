@@ -4,19 +4,6 @@ const Display = ({text}) => <div><h2><b>{text}</b></h2></div>
   
 const Button = ({onClick,text}) =>  <button onClick={onClick}>{text}</button>
 
-const Average = ({average,total}) => {
-  if (average === 0 && total === 0){
-    return <div><p>average 0</p></div>
-  }
-  return <div><p>average {average/total}</p></div>
-
-} 
-const Positive = ({good,total}) => {
-  if (good === 0){
-    return <div><p>Positive 0%</p></div>
-  }
-  return <div><p>Positive {100*(good/total)}%</p></div>
-}
 
 const StatisticLine = ({text,value}) => <tr><td>{text}</td><td>{value}</td></tr>
 
