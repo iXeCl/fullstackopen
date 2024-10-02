@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-const Display = ({text}) => <div><p><b>{text}</b></p></div>
+const Display = ({text}) => <div><h2><b>{text}</b></h2></div>
   
 const Button = ({onClick,text}) =>  <button onClick={onClick}>{text}</button>
 
@@ -18,23 +18,34 @@ const Positive = ({good,total}) => {
   return <div><p>Positive {100*(good/total)}%</p></div>
 }
 
+const StatisticLine = ({text,value}) => <div>{text} {value}</div>
+
 const Statistics = ({good,bad,neutral,total,average}) => {
   if (total===0){
     return <div>
-      <b>statistics</b>
+      <h2>statistics</h2>
       <p>No feedback given</p>
     
     </div>
   }
   return <div>
-    <b>statistics</b>
-    <p><b>good </b>{good}</p>
-    <p><b>neutral </b>{neutral}</p>
-    <p><b>bad </b>{bad}</p>
-    <p><b>total </b>{total}</p>
-    <Average average={average} total={total}/>
-    <Positive good={good} total={total}/>
-    </div>
+    <h2>statistics</h2>
+    <StatisticLine text="good" value={good}/>
+    <StatisticLine text="neutral" value={neutral}/>
+    <StatisticLine text="bad" value={bad}/>
+    <StatisticLine text="total" value={total}/>
+    <StatisticLine text="average" value={average/total}/>
+    <StatisticLine text="positive" value={(good/total)*100+"%"} />
+  </div>
+  // return <div>
+  //   <b>statistics</b>
+  //   <p><b>good </b>{good}</p>
+  //   <p><b>neutral </b>{neutral}</p>
+  //   <p><b>bad </b>{bad}</p>
+  //   <p><b>total </b>{total}</p>
+  //   <Average average={average} total={total}/>
+  //   <Positive good={good} total={total}/>
+  //   </div>
   
 
 }
@@ -75,13 +86,7 @@ const App = () => {
       <Button onClick={handleNeutralClick} text="neutral"/>
       <Button onClick={handleBadClick} text="bad"/> 
       <Statistics average={average} bad={bad} good={good} neutral={neutral} total={total}/>
-      {/* <Display text = "statistics" />
-      <p><b>good </b>{good}</p>
-      <p><b>neutral </b>{neutral}</p>
-      <p><b>bad </b>{bad}</p>
-      <p><b>total </b>{total}</p>
-      <Average average={average} total={total}/>
-      <Positive good={good} total={total}/> */}
+      
     </div>  
   )
 }

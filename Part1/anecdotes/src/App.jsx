@@ -17,15 +17,41 @@ const App = () => {
   ]
    
   const [selected, setSelected] = useState(0)
-  const randomClick = () => setSelected(Math.floor(Math.random()*6))
+  const [points, setPoints] = useState([0,0,0,0,0,0,0,0])
 
+  const randomClick = () => setSelected(Math.floor(Math.random()*(anecdotes.length-1)))
+  const voteClick = () => {
+    console.log(points)
+    const newPoints = [...points] // Create a copy of the points array
+    newPoints[selected] += 1 // Increment the vote for the selected anecdote
+    setPoints(newPoints) // Update the state with the new array
+    console.log(newPoints)
+  }
+  const MostVotes = () => {
+    console.log(Math.max(...points))
+    if (Math.max(...points)===0){
+      return <div></div>
+
+    }
+  
+    return ( <div>
+      <h1>Anecdote with most votes</h1>
+      <p>{anecdotes[points.indexOf(Math.max(...points))]}</p>
+      <p>This anecdote has {Math.max(...points)} votes</p>
+      </div>
+    )
+  }
 
   return (
     <div>
-      <p><h1>{anecdotes[selected]}</h1></p>
-      <Button onClick={randomClick} text={"next anecdote"} />
+      <h1>Anecdote of the day</h1>
+      <p>{anecdotes[selected]}</p>
+      <p>has {points[selected]} points</p>
+      <Button onClick={voteClick} text="vote" />
+      <Button onClick={randomClick}  text="next anecdote" />
+      <MostVotes/>
     </div>
   )
-}
 
+}
 export default App
