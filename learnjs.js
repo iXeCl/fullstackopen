@@ -175,26 +175,90 @@
 // const result = notes.map(note => note.id) 
 // console.log(typeof result[1])
 
-const course = {
-    id: 1,
-    name: 'Half Stack application development',
-    parts: [
-      {
-        name: 'Fundamentals of React',
-        exercises: 10,
-        id: 1
-      },
-      {
-        name: 'Using props to pass data',
-        exercises: 7,
-        id: 2
-      },
-      {
-        name: 'State of a component',
-        exercises: 14,
-        id: 3
-      }
-    ]
-  }
+// const course = {
+//     id: 1,
+//     name: 'Half Stack application development',
+//     parts: [
+//       {
+//         name: 'Fundamentals of React',
+//         exercises: 10,
+//         id: 1
+//       },
+//       {
+//         name: 'Using props to pass data',
+//         exercises: 7,
+//         id: 2
+//       },
+//       {
+//         name: 'State of a component',
+//         exercises: 14,
+//         id: 3
+//       }
+//     ]
+//   }
 
-  console.log(course.parts.map(part=>part.name + part.exercises))
+//   //console.log(course.parts.map(part=>part.name + part.exercises))
+//   console.log(course.parts.map(part => part.exercises).reduce((acc, curr) => acc + curr, 0))
+//   console.log(course.parts.reduce((sum, part) => sum + part.exercises, 0))
+
+const course = [
+    {
+      name: 'Half Stack application development',
+      id: 1,
+      parts: [
+        {
+          name: 'Fundamentals of React',
+          exercises: 10,
+          id: 1
+        },
+        {
+          name: 'Using props to pass data',
+          exercises: 7,
+          id: 2
+        },
+        {
+          name: 'State of a component',
+          exercises: 14,
+          id: 3
+        },
+        {
+          name: 'Redux',
+          exercises: 11,
+          id: 4
+        }
+      ]
+    }, 
+    {
+      name: 'Node.js',
+      id: 2,
+      parts: [
+        {
+          name: 'Routing',
+          exercises: 3,
+          id: 1
+        },
+        {
+          name: 'Middlewares',
+          exercises: 7,
+          id: 2
+        }
+      ]
+    }
+  ]
+
+  const totalExercises = course.map(c => ({
+    name: c.name,
+    total: c.parts.reduce((sum, part) => sum + part.exercises, 0)
+  }))
+  
+  console.log("Total exercises for each course:", totalExercises)
+  
+  // b) Finding the max number in the array a
+  const a = [1, 2, 3, 4, 5]
+  const maxNumber = Math.max(...a)
+  
+  console.log("Maximum number in array a:", maxNumber)
+ const b = course.map(c => c.parts.reduce((sum, part) => sum + part.exercises, 0))
+ console.log(b)
+
+ console.log(course.map(c => c.parts))
