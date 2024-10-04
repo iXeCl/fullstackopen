@@ -8,6 +8,16 @@ const App = () => {
 
   const addName = (event) => {
     event.preventDefault()
+    const nameExists = persons.some(person => person.name === newName)
+    if (newName.length === 0) { // Check if newName is empty
+      return alert('Cannot add an empty name') // Alert if empty
+      // Exit the function if empty
+    }
+    else if (nameExists){
+      setNewName('')
+      return alert(`${newName} is already added to phonebook`)
+    
+    }
     const nameObject = {
       name: newName,
     }
@@ -15,8 +25,7 @@ const App = () => {
     setNewName('')
   }
 
-  const handleNewName = (event) => setNewName(event.target.value)
-  
+  const handleNewName = (event) =>  setNewName(event.target.value)
   
 
   return (
@@ -24,7 +33,7 @@ const App = () => {
       <h2>Phonebook</h2>
       <form onSubmit={addName} >
         <div>
-          name: <input onChange={handleNewName}/>
+          name: <input value={newName}  onChange={handleNewName}/>
         </div>
         <div>
           <button type="submit">add</button>
