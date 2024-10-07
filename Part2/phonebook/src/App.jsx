@@ -35,9 +35,23 @@ const App = () => {
       // Exit the function if empty
     }
     else if (nameExists){
-      setNewName('')
-      setNewNumber('')
-      return alert(`${newName} is already added to phonebook`)
+      const findPersonIdByName = (name) => {
+        const person = persons.find(person => person.name === name);
+        return person ? person.id : null
+    }
+      if (window.confirm(`${newName} is already added to the phonebook, would you like to replace the old number with a new one?`)) {
+        return(
+          alterPerson(findPersonIdByName(newName))
+          ,setNewName('')
+          ,setNewNumber('')
+      )
+      }
+      else {
+
+        
+      }
+      
+      
     
     }
     const nameObject = {
@@ -78,6 +92,28 @@ const App = () => {
     }
   }
   
+const alterPerson = id => {
+  const url = `http://localhost:3001/persons/${id}`
+  const personToChange = persons.find(p => p.id === id)
+  const changedPerson = { ...personToChange, number: newNumber }
+
+  console.log(personToChange)
+  console.log(changedPerson)
+
+  
+
+  phonebookService
+    .update(id, changedPerson )
+      .then(returnedPerson => {
+      setPersons(persons.map(p => p.id !== id ? p : returnedPerson))
+    })
+    .catch(error => {
+      alert(
+        `the person '${personToChange.name}' was already deleted from server`
+      )
+      
+    })
+}
   
 
   return (
