@@ -3,7 +3,7 @@ import Persons from './components/Persons'
 import PersonForm from './components/PersonForm'
 import Filter from './components/Filter'
 import phonebookService from './services/phonebook'
-import axios from 'axios'
+
 
 const App = () => {
   const [persons, setPersons] = useState([]) 
@@ -43,7 +43,7 @@ const App = () => {
     const nameObject = {
       name: newName,
       number: newNumber,
-      id: Math.max(...persons.map(person => person.id))+1,
+      id: `${Math.max(...persons.map(person => person.id))+1}`,
     }
     phonebookService
       .create(nameObject)
@@ -52,6 +52,9 @@ const App = () => {
         setNewName('')
         setNewNumber('')
         })
+      .catch(error => {
+        console.error("Error adding person:", error);
+    })
   }
 
   const handleNewName = (event) =>  setNewName(event.target.value)
@@ -60,6 +63,20 @@ const App = () => {
   
   const filteredPersons = persons.filter(person =>
     person.name.toLowerCase().includes(searchTerm.toLowerCase()))
+  
+  const deletePersons = (person) => {
+    if (window.confirm(`Do you really want to delete ${person.name}?`)) {
+        phonebookService
+            .deletePerson(person.id)
+            .then(() => {
+                // Update the state to remove the person from the list
+                setPersons(persons.filter(p => p.id !== person.id));
+            })
+            .catch(error => {
+                console.error("Error deleting person:", error);
+            });
+    }
+  }
   
   
 
@@ -92,7 +109,7 @@ const App = () => {
       <h2>Numbers</h2>
       
       {/* {filteredPersons.map(person => <p>{person.name} {person.number}</p>)} */}
-      <Persons key = {filteredPersons.id} filteredPersons = {filteredPersons}/>
+      <Persons key = {filteredPersons.id} filteredPersons = {filteredPersons} deletePersons={deletePersons}/>
       
     </div>
   )
