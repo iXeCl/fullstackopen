@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import Persons from './components/Persons'
 import PersonForm from './components/PersonForm'
 import Filter from './components/Filter'
-
+import phonebookService from './services/phonebook'
 import axios from 'axios'
 
 const App = () => {
@@ -12,11 +12,18 @@ const App = () => {
   const [searchTerm, setSearchTerm] = useState('')
 
   useEffect(() => {
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        setPersons(response.data)
-      })
+    // axios
+    //   .get('http://localhost:3001/persons')
+    //   .then(response => {
+    //     setPersons(response.data)
+    //   })
+
+    phonebookService
+      .getAll()
+      .then(initialPhonebook => { 
+        console.log(initialPhonebook)
+        setPersons(initialPhonebook)} )
+      .catch(error => {console.error("error fetching names", error)})
   }, [])
 
 
@@ -38,9 +45,13 @@ const App = () => {
       number: newNumber,
       id: Math.max(...persons.map(person => person.id))+1,
     }
-    setPersons(persons.concat(nameObject))
-    setNewName('')
-    setNewNumber('')
+    phonebookService
+      .create(nameObject)
+      .then(returnedPerson => {
+        setPersons(persons.concat(returnedPerson))
+        setNewName('')
+        setNewNumber('')
+        })
   }
 
   const handleNewName = (event) =>  setNewName(event.target.value)
